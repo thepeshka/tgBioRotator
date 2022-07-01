@@ -1,0 +1,4 @@
+pyrogram==2.0.30
+tgcrypto==1.2.3
+celery[redis]==5.2.7
+peewee==3.15.0

@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  base:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    image: pythonbase
+
+  worker:
+    image: pythonbase
+    depends_on:
+      - redis
+      - base
+    command: ["-A", "celeryapp", "worker", "--loglevel=INFO"]
+    env_file: .env
+    environment:
+      - CELERY_REDIS_BROKER=redis://redis/0
+    volumes:
+      - storage:/app/storage
+
+  beat:
+    image: pythonbase
+    depends_on:
+      - redis
+      - base
+    command: ["-A", "celeryapp", "beat", "--loglevel=INFO"]
+    environment:
+      - CELERY_REDIS_BROKER=redis://redis/0
+    volumes:
+      - storage:/app/storage
+
+  redis:
+    image: redis
+
+volumes:
+  storage:
