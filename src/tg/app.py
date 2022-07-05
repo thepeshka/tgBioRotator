@@ -5,7 +5,4 @@ app = None
 
 
 def get_tg_app():
-    global app
-    if not app:
-        app = Client('sessions', workdir=STORAGE_DIR, api_id=TG_API_ID, api_hash=TG_API_HASH)
-    return app
+    return Client('sessions', workdir=STORAGE_DIR, api_id=TG_API_ID, api_hash=TG_API_HASH)
