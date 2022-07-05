@@ -29,8 +29,18 @@ services:
     command: ["-A", "celeryapp", "beat", "--loglevel=INFO"]
     environment:
       - CELERY_REDIS_BROKER=redis://redis/0
-    volumes:
-      - storage:/app/storage
+
+  flower:
+    image: pythonbase
+    restart: always
+    depends_on:
+      - redis
+      - base
+    command: ["-A", "celeryapp", "flower", "--loglevel=INFO"]
+    environment:
+      - CELERY_REDIS_BROKER=redis://redis/0
+    ports:
+      - "127.0.0.1:5555:5555"
 
   redis:
     restart: always

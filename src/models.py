@@ -5,6 +5,7 @@ from settings import DB_PATH
 
 
 database = SqliteDatabase(DB_PATH)
+TABLES_CREATED = False
 
 
 class Model(BaseModel):
@@ -21,4 +22,8 @@ class HistoryEntry(Model):
     created_at = DateTimeField(default=lambda: datetime.now())
 
 
-database.create_tables(Model.__subclasses__())
+def create_tables():
+    global TABLES_CREATED
+    if not TABLES_CREATED:
+        TABLES_CREATED = True
+        database.create_tables(Model.__subclasses__())

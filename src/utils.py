@@ -1,9 +1,10 @@
 from peewee import fn
 
-from models import Phrase, HistoryEntry
+from models import Phrase, HistoryEntry, create_tables
 
 
 def add_phrase(content):
+    create_tables()
     phrase = Phrase()
     phrase.content = content
     phrase.save()
@@ -11,6 +12,7 @@ def add_phrase(content):
 
 
 def get_phrase():
+    create_tables()
     history_entry = HistoryEntry.select().order_by("-created_at").first()
     phrase = Phrase.select()
     if history_entry:
