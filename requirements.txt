@@ -1,5 +1,5 @@
-pyrogram==2.0.30
-tgcrypto==1.2.3
+pyrogram==2.0.106
+tgcrypto==1.2.5
 celery[redis]==5.2.7
 peewee==3.15.0
 flower==1.1.0
